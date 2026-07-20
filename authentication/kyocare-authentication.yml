@@ -1,0 +1,58 @@
+generated: '2026-07-19'
+method: searched
+source: https://api.attain.kyocare.com/.well-known/openid-configuration
+docs: https://api.attain.kyocare.com/.well-known/openid-configuration
+note: Derived from the live OIDC discovery + RFC 8414 authorization-server metadata
+  published by the Attain platform API. Kyo publishes no developer documentation; this
+  profile is read entirely from the machine-readable discovery documents.
+summary:
+  types:
+  - oauth2
+  - openIdConnect
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+  pkce: S256
+  identity_provider: AWS Cognito (us-east-1_DEP9DvC1P)
+schemes:
+- name: openIdConnect
+  type: openIdConnect
+  openIdConnectUrl: https://api.attain.kyocare.com/.well-known/openid-configuration
+  issuer: https://api.attain.kyocare.com
+  id_token_signing_alg_values_supported:
+  - RS256
+  subject_types_supported:
+  - public
+  userinfo_endpoint: https://auth.kyocare.com/oauth2/userInfo
+  end_session_endpoint: https://auth.kyocare.com/logout
+  sources:
+  - well-known/kyocare-openid-configuration.json
+- name: oauth2
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.attain.kyocare.com/oauth/authorize
+    tokenUrl: https://api.attain.kyocare.com/oauth/token
+    refreshUrl: null
+    pkce_methods:
+    - S256
+  - flow: clientCredentials
+    tokenUrl: https://api.attain.kyocare.com/oauth/token
+  token_endpoint_auth_methods_supported:
+  - client_secret_basic
+  - client_secret_post
+  response_types_supported:
+  - code
+  - token
+  revocation_endpoint: https://auth.kyocare.com/oauth2/revoke
+  registration_endpoint: https://api.attain.kyocare.com/register
+  jwks_uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_DEP9DvC1P/.well-known/jwks.json
+  sources:
+  - well-known/kyocare-openid-configuration.json
+  - well-known/kyocare-oauth-authorization-server.json
+gateways:
+- host: api.kyocare.com
+  vendor: Workato API Platform
+  evidence: CNAME apim-custom.workato.com; server:envoy; x-gateway-version:1.27.1
+  access: private
+  observed_response: '401 {"error":"access to this API has been disallowed"}'
