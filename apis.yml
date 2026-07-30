@@ -1,22 +1,71 @@
 aid: kyocare
-name: Kyocare
-description: 'Kyocare is a company surfaced as a portfolio company of norwest-venture-partners and added
-  to the API Evangelist network as a stub for enrichment. Sector: unknown. This profile is a lead awaiting
-  the enrichment pipeline.'
+name: Kyo
+description: 'Kyo (kyocare.com) is a US provider of Applied Behavior Analysis (ABA)
+  therapy for autistic children and young adults, delivering in-home, in-school and
+  center-based care across 20+ locations with in-network coverage from major insurers.
+  Kyo runs a client-facing digital surface — the Kyo Care portal and mobile app — for
+  scheduling, session notes, progress tracking and family communication, backed by
+  the internal "Attain" platform API (api.attain.kyocare.com) that publishes live
+  OpenID Connect and RFC 8414 discovery documents over AWS Cognito, plus a private
+  Workato-managed partner gateway at api.kyocare.com. Kyo publishes no public developer
+  program, documentation or SDKs; its API surface is private to its own applications
+  and payer integrations.'
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kyocare.com/wp-content/uploads/2022/06/cropped-favicon-192x192-1.png
 url: https://raw.githubusercontent.com/api-evangelist/kyocare/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - norwest-venture-partners
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: private-api
+x-tier-reason: live-oidc-discovery-no-public-developer-program
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-- Unknown
-apis: []
+- Healthcare
+- Autism
+- ABA Therapy
+- Behavioral Health
+- Patient Engagement
+- Digital Health
+- Scheduling
+- Private API
+apis:
+- aid: kyocare:attain
+  name: Kyo Attain Platform API
+  description: 'The Attain platform API is the backend serving the Kyo Care portal
+    (portal.kyocare.com) and the Kyo Care mobile app. It is an OAuth 2.0 / OpenID
+    Connect protected API fronted by AWS Cognito, publishing live
+    /.well-known/openid-configuration and /.well-known/oauth-authorization-server
+    discovery documents that advertise authorization_code (with PKCE S256) and
+    client_credentials grants. No public OpenAPI, documentation or open registration
+    is offered — access is limited to Kyo''s own first-party clients.'
+  humanURL: https://kyocare.com/about-us/kyo-care-app/
+  baseURL: https://api.attain.kyocare.com
+  tags:
+  - Patient Portal
+  - Scheduling
+  - Behavioral Health
+  properties:
+  - type: OpenIDConnect
+    url: https://api.attain.kyocare.com/.well-known/openid-configuration
+  - type: Authentication
+    url: authentication/kyocare-authentication.yml
+  - type: OAuthScopes
+    url: scopes/kyocare-scopes.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +74,34 @@ maintainers:
 common:
 - type: Website
   url: https://kyocare.com
+- type: Portal
+  url: https://portal.kyocare.com
+- type: SignUp
+  url: https://kyocare.com/aba-therapy-services/enroll-today/
+- type: Support
+  url: https://kyocare.com/autism-aba-therapy-faqs/
+- type: Blog
+  url: https://kyocare.com/news/
+- type: PrivacyPolicy
+  url: https://kyocare.com/privacy-policy/
+- type: Careers
+  url: https://kyocare.com/careers/
+- type: Authentication
+  url: authentication/kyocare-authentication.yml
+- type: OAuthScopes
+  url: scopes/kyocare-scopes.yml
+- type: WellKnown
+  url: well-known/kyocare-well-known.yml
+- type: Conformance
+  url: conformance/kyocare-conformance.yml
+- type: Conventions
+  url: conventions/kyocare-conventions.yml
+- type: DomainSecurity
+  url: security/kyocare-domain-security.yml
+- type: LLMsTxt
+  url: llms/kyocare-llms.txt
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
