@@ -1,0 +1,56 @@
+generated: '2026-07-19'
+method: derived
+source: well-known/kyocare-openid-configuration.json, live HTTP probes of
+  api.attain.kyocare.com and api.kyocare.com
+note: Kyo publishes no developer documentation, so these conventions are limited to
+  what is observable from the live discovery documents and response headers. Fields
+  that cannot be observed are recorded as unknown rather than guessed. No idempotency
+  contract is documented or observable — no `Idempotency` pointer is emitted.
+authentication:
+  style: oauth2-bearer
+  flows:
+  - authorizationCode
+  - clientCredentials
+  pkce: S256
+  token_endpoint: https://api.attain.kyocare.com/oauth/token
+  identity_provider: AWS Cognito (us-east-1_DEP9DvC1P)
+  artifact: authentication/kyocare-authentication.yml
+idempotency:
+  supported: unknown
+  header: null
+  evidence: no documentation and no idempotency header observable on unauthenticated
+    responses
+pagination:
+  style: unknown
+  evidence: no OpenAPI or documentation published
+versioning:
+  scheme: unknown
+  observed: 'the Attain API root returns "Welcome to Express: at_sprint_20", suggesting
+    sprint-tagged internal builds rather than a public version contract'
+error_envelope:
+  format: vendor-json
+  shape: '{"error": "<message>"}'
+  evidence: observed 401 from the Workato gateway at api.kyocare.com
+  problem_json: false
+request_tracing:
+  headers:
+  - x-correlation-id
+  - x-request-id
+  evidence: both returned by the Workato-managed gateway at api.kyocare.com (Envoy,
+    x-gateway-version 1.27.1)
+rate_limiting:
+  signaled: unknown
+  headers: []
+  evidence: no rate-limit headers observed on unauthenticated responses
+transport:
+  https_only: true
+  hsts:
+    api.attain.kyocare.com: unknown
+    api.kyocare.com: 'max-age=31536000; includeSubDomains'
+    kyocare.com: false
+cross_links:
+  authentication: authentication/kyocare-authentication.yml
+  scopes: scopes/kyocare-scopes.yml
+  well_known: well-known/kyocare-well-known.yml
+  conformance: conformance/kyocare-conformance.yml
+  security: security/kyocare-domain-security.yml

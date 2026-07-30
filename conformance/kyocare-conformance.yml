@@ -1,0 +1,58 @@
+generated: '2026-07-19'
+method: searched
+source: https://api.attain.kyocare.com/.well-known/openid-configuration
+note: Standards asserted from the live discovery documents published by the Attain
+  platform API. Kyo publishes no compliance program, certification page or trust
+  center, so no `Compliance` pointer is emitted — only the machine-verifiable
+  protocol conformance below.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server advertises authorization_endpoint,
+    token_endpoint, response_types_supported [code, token] and grant_types_supported
+    [authorization_code, client_credentials]
+- id: oidc-core
+  conforms: true
+  evidence: /.well-known/openid-configuration advertises issuer, jwks_uri, userinfo_endpoint,
+    id_token_signing_alg_values_supported [RS256], subject_types_supported [public]
+- id: oidc-discovery
+  conforms: true
+  evidence: /.well-known/openid-configuration returns 200 with a valid JSON metadata
+    document
+- id: rfc8414-authorization-server-metadata
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server returns 200 with valid metadata
+- id: rfc7636-pkce
+  conforms: true
+  evidence: code_challenge_methods_supported [S256]
+- id: rfc7009-token-revocation
+  conforms: true
+  evidence: revocation_endpoint https://auth.kyocare.com/oauth2/revoke
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  status: partial
+  evidence: registration_endpoint https://api.attain.kyocare.com/register is advertised,
+    but registration is not open to third parties
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on api.attain.kyocare.com and 403
+    on kyocare.com
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: /.well-known/api-catalog returns 404
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: 'no OpenAPI or error reference published; the Workato gateway returns a
+    bare {"error": "..."} envelope, not application/problem+json'
+- id: fapi
+  conforms: false
+  evidence: no FAPI profile claimed; token_endpoint_auth_methods_supported is limited
+    to client_secret_basic / client_secret_post (no mTLS or private_key_jwt)
+- id: fhir-r4
+  conforms: false
+  evidence: no FHIR endpoints, CapabilityStatement or resource shapes discoverable
+- id: hipaa
+  conforms: false
+  status: unverified
+  evidence: Kyo is a US healthcare provider handling PHI and is therefore a HIPAA
+    covered entity, but publishes no attestation, BAA or compliance page to verify

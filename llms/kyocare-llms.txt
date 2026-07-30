@@ -1,0 +1,49 @@
+# Kyo
+
+> Kyo (kyocare.com) is a US provider of Applied Behavior Analysis (ABA) therapy for
+> autistic children and young adults, delivering in-home, in-school and center-based
+> care across 20+ locations. Kyo operates a client-facing portal and mobile app backed
+> by a private "Attain" platform API. Kyo publishes NO public developer program, no
+> OpenAPI, no SDKs and no API documentation — its API surface is private to its own
+> applications and payer integrations.
+
+## APIs
+
+- [Kyo Attain Platform API](https://kyocare.com/about-us/kyo-care-app/): OAuth 2.0 /
+  OpenID Connect protected backend for the Kyo Care portal and mobile app. Base URL
+  https://api.attain.kyocare.com. Access is limited to Kyo first-party clients; there
+  is no open registration.
+
+## Discovery documents
+
+- [OpenID Connect discovery](https://api.attain.kyocare.com/.well-known/openid-configuration):
+  issuer https://api.attain.kyocare.com, RS256 ID tokens, AWS Cognito JWKS.
+- [OAuth 2.0 authorization server metadata (RFC 8414)](https://api.attain.kyocare.com/.well-known/oauth-authorization-server):
+  authorization_code + client_credentials grants, PKCE S256, token revocation.
+
+## Authentication
+
+- Authorization endpoint: https://api.attain.kyocare.com/oauth/authorize
+- Token endpoint: https://api.attain.kyocare.com/oauth/token
+- Revocation endpoint: https://auth.kyocare.com/oauth2/revoke
+- UserInfo endpoint: https://auth.kyocare.com/oauth2/userInfo
+- Scopes advertised: openid, email
+
+## Docs
+
+- [Kyo Care App](https://kyocare.com/about-us/kyo-care-app/): overview of the client
+  portal and mobile app.
+- [ABA Therapy Services](https://kyocare.com/aba-therapy-services/)
+- [FAQs](https://kyocare.com/autism-aba-therapy-faqs/)
+- [News](https://kyocare.com/news/)
+- [Privacy Policy](https://kyocare.com/privacy-policy/)
+- [Careers](https://kyocare.com/careers/)
+
+## Notes for agents
+
+- There is no public API to call. Requests to https://api.kyocare.com return
+  401 {"error":"access to this API has been disallowed"} — it is a private
+  Workato-managed partner gateway.
+- Kyo is a US healthcare provider handling PHI. Treat any Kyo endpoint as
+  regulated-data infrastructure and do not attempt unauthenticated access.
+- No MCP server, Agent Skill, CLI, SDK or sandbox is published by Kyo.

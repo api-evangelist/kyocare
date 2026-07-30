@@ -1,0 +1,48 @@
+generated: '2026-07-19'
+method: searched
+source: https://api.attain.kyocare.com/.well-known/openid-configuration
+hosts:
+- host: https://api.attain.kyocare.com
+  note: Attain platform API backing the Kyo Care portal (portal.kyocare.com); serves
+    live OIDC + RFC 8414 discovery documents.
+  documents:
+  - path: /.well-known/openid-configuration
+    standard: OpenID Connect Discovery 1.0
+    status: 200
+    file: kyocare-openid-configuration.json
+  - path: /.well-known/oauth-authorization-server
+    standard: RFC 8414
+    status: 200
+    file: kyocare-oauth-authorization-server.json
+  - path: /.well-known/security.txt
+    standard: RFC 9116
+    status: 404
+  - path: /.well-known/api-catalog
+    standard: RFC 9727
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://api.kyocare.com
+  note: Workato-managed API gateway (CNAME apim-custom.workato.com, Envoy). Every path
+    returns 401 "access to this API has been disallowed" — a private partner/integration
+    gateway with no public discovery surface.
+  documents:
+  - path: /.well-known/security.txt
+    status: 401
+  - path: /.well-known/openid-configuration
+    status: 401
+  - path: /.well-known/oauth-authorization-server
+    status: 401
+  - path: /.well-known/api-catalog
+    status: 401
+- host: https://kyocare.com
+  note: Marketing site (WordPress behind a WAF); /.well-known/* is blocked with 403.
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /llms.txt
+    status: 404

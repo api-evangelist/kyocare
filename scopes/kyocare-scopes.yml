@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: searched
+source: https://api.attain.kyocare.com/.well-known/openid-configuration
+docs: https://api.attain.kyocare.com/.well-known/oauth-authorization-server
+note: Scopes read verbatim from the published `scopes_supported` of the Attain platform
+  API discovery document. Kyo publishes no scope/permission reference page, so this is
+  the complete advertised scope surface — standard OIDC identity scopes only, with no
+  resource-level scopes exposed publicly.
+schemes:
+- name: oauth2
+  source: well-known/kyocare-openid-configuration.json
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://api.attain.kyocare.com/oauth/authorize
+    tokenUrl: https://api.attain.kyocare.com/oauth/token
+  - flow: clientCredentials
+    tokenUrl: https://api.attain.kyocare.com/oauth/token
+scopes:
+- scope: openid
+  description: Standard OpenID Connect scope; requests an ID token asserting the end
+    user's identity.
+  flows:
+  - authorizationCode
+  sources:
+  - well-known/kyocare-openid-configuration.json
+- scope: email
+  description: Releases the end user's email address and email_verified claim to the
+    client.
+  flows:
+  - authorizationCode
+  sources:
+  - well-known/kyocare-openid-configuration.json
