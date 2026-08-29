@@ -10,6 +10,17 @@ description: 'Kyo (kyocare.com) is a US provider of Applied Behavior Analysis (A
   Workato-managed partner gateway at api.kyocare.com. Kyo publishes no public developer
   program, documentation or SDKs; its API surface is private to its own applications
   and payer integrations.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
